@@ -6,14 +6,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public string playernumber;
-    public bool CanMoveAgain;
+    //public bool CanMoveAgain;
 
     public float speed;
     public float jumpForce;
     public Rigidbody2D myRb;
     public Color playerColor;
 
-    public GameObject HitPoint;
+    //public GameObject HitPoint;
 
     private float currentDirection = 1;
     private float currentX;
@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour {
     public Animator myArmAnim;
     public Animator myEyeAnim;
 
+    public Canvas CanvasExit;
+
 	// Use this for initialization
 	void Start () {
         myRb = GetComponent<Rigidbody2D>();
@@ -39,6 +41,9 @@ public class PlayerController : MonoBehaviour {
         //myAnim.GetComponentInChildren<Animator>();
         SoundWave.GetComponent<SpriteRenderer>().color = playerColor;
         //myRenderer.color = Color.red;
+
+        CanvasExit = CanvasExit.GetComponent<Canvas>();
+        CanvasExit.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -84,11 +89,14 @@ public class PlayerController : MonoBehaviour {
 
     private void checkInput()
     {
-        if (CanMoveAgain)
+        if (true)//CanMoveAgain)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Application.Quit();
+                CanvasExit.enabled = true;
+                Time.timeScale = 0;
+
+                //Application.Quit();
             }
             currentX = Input.GetAxis("Horizontal_" + playernumber);
             if (currentX < 0)
@@ -105,15 +113,18 @@ public class PlayerController : MonoBehaviour {
                 myArmRenderer.flipX = false;
                 myEyeRenderer.flipX = false;
             }
+            /**
             if (grounded && currentX < 0.01 && currentX > -0.01 && Input.GetButtonDown("Action_" + playernumber))
             {
                 doActionMove();
-                CanMoveAgain = false;
+                //CanMoveAgain = false;
             }
-
-            Jump = Input.GetButtonDown("Jump_" + playernumber);
-            sound = Input.GetButton("Sound_" + playernumber);
+            **/
+            
         }
+
+        Jump = Input.GetButtonDown("Jump_" + playernumber);
+        sound = Input.GetButton("Sound_" + playernumber);
     }
 
     private bool WallGroundCheck(Vector3 move)
@@ -252,6 +263,6 @@ public class PlayerController : MonoBehaviour {
         myArmAnim.SetTrigger("Punch");
         myArmAnim.SetBool("CanMoveAgain", true);
 
-        HitPoint.SetActive(true);
+        //HitPoint.SetActive(true);
     }
 }

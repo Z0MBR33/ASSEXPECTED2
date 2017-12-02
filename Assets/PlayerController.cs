@@ -33,9 +33,11 @@ public class PlayerController : MonoBehaviour {
     public Animator myEyeAnim;
 
     public Canvas CanvasExit;
+    public Canvas CanvasLost;
+    public Canvas CanvasWon;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         myRb = GetComponent<Rigidbody2D>();
         //myRenderer = GetComponentInChildren<SpriteRenderer>();
         myRenderer.color = playerColor;
@@ -45,10 +47,13 @@ public class PlayerController : MonoBehaviour {
         //myRenderer.color = Color.red;
 
         CanvasExit = CanvasExit.GetComponent<Canvas>();
+        CanvasExit.enabled = false;
+        CanvasLost = CanvasLost.GetComponent<Canvas>();
+        CanvasLost.enabled = false;
+        CanvasWon = CanvasWon.GetComponent<Canvas>();
+        CanvasWon.enabled = false;
 
-            CanvasExit.enabled = false;
 
-        
     }
 	
 	// Update is called once per frame
@@ -105,9 +110,24 @@ public class PlayerController : MonoBehaviour {
                     CanvasExit.enabled = true;
                     Time.timeScale = 0;
                 }
-
                 //Application.Quit();
             }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                CanvasLost.enabled = true;
+                Time.timeScale = 0;
+                //Application.Quit();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                CanvasWon.enabled = true;
+                Time.timeScale = 0;
+                //Application.Quit();
+            }
+
+
             currentX = Input.GetAxis("Horizontal_" + playernumber);
             if (currentX < 0)
             {

@@ -7,6 +7,8 @@ TagManager:
   - player1
   - player2
   - MoveAble
+  - Destroyable
+  - PunchPoint
   layers:
   - Default
   - TransparentFX

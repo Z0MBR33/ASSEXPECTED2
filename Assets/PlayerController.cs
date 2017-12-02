@@ -6,14 +6,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public string playernumber;
-    //public bool CanMoveAgain;
+    public bool CanMoveAgain = true;
 
     public float speed;
     public float jumpForce;
     public Rigidbody2D myRb;
     public Color playerColor;
 
-    //public GameObject HitPoint;
+    public GameObject HitPointRight;
+    public GameObject HitPointLeft;
+
 
     private float currentDirection = 1;
     private float currentX;
@@ -43,7 +45,10 @@ public class PlayerController : MonoBehaviour {
         //myRenderer.color = Color.red;
 
         CanvasExit = CanvasExit.GetComponent<Canvas>();
-        CanvasExit.enabled = false;
+
+            CanvasExit.enabled = false;
+
+        
     }
 	
 	// Update is called once per frame
@@ -89,12 +94,17 @@ public class PlayerController : MonoBehaviour {
 
     private void checkInput()
     {
-        if (true)//CanMoveAgain)
+        
+        if (CanMoveAgain)
         {
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                CanvasExit.enabled = true;
-                Time.timeScale = 0;
+                if (CanvasExit != null)
+                {
+                    CanvasExit.enabled = true;
+                    Time.timeScale = 0;
+                }
 
                 //Application.Quit();
             }
@@ -113,18 +123,20 @@ public class PlayerController : MonoBehaviour {
                 myArmRenderer.flipX = false;
                 myEyeRenderer.flipX = false;
             }
-            /**
+            
             if (grounded && currentX < 0.01 && currentX > -0.01 && Input.GetButtonDown("Action_" + playernumber))
             {
                 doActionMove();
-                //CanMoveAgain = false;
+                CanMoveAgain = false;
             }
-            **/
-            
+
+            Jump = Input.GetButtonDown("Jump_" + playernumber);
+            sound = Input.GetButton("Sound_" + playernumber);
+
+
         }
 
-        Jump = Input.GetButtonDown("Jump_" + playernumber);
-        sound = Input.GetButton("Sound_" + playernumber);
+        
     }
 
     private bool WallGroundCheck(Vector3 move)
@@ -237,11 +249,11 @@ public class PlayerController : MonoBehaviour {
 
     void doActionMove()
     {
-        if(playernumber == "1")
+        if(playernumber == "2")
         {
             Hit();
         }
-        if (playernumber == "2")
+        if (playernumber == "1")
         {
             Kick();
         }
@@ -254,15 +266,25 @@ public class PlayerController : MonoBehaviour {
 
     void Hit()
     {
-        myAnim.SetTrigger("Punch");
-        myAnim.SetBool("CanMoveAgain", true);
+        myAnim.SetTrigger("Action");
+        myAnim.SetBool("CanMoveAgain", false);
 
-        myEyeAnim.SetTrigger("Punch");
-        myEyeAnim.SetBool("CanMoveAgain",true);
+        myEyeAnim.SetTrigger("Action");
+        myEyeAnim.SetBool("CanMoveAgain",false);
 
-        myArmAnim.SetTrigger("Punch");
-        myArmAnim.SetBool("CanMoveAgain", true);
+        myArmAnim.SetTrigger("Action");
+        myArmAnim.SetBool("CanMoveAgain", false);
 
-        //HitPoint.SetActive(true);
+        HitPointRight.SetActive(true);
+        if (currentDirection < 0)
+        {
+            HitPointRight.SetActive(true);
+        }
+        HitPointRight.transform.position += new Vector3(0, 0.1f, 0);
+        if(currentDirection < 0)
+        {
+            HitPointLeft.SetActive(true);
+        }
+        HitPointLeft.transform.position += new Vector3(0, 0.1f, 0);
     }
 }

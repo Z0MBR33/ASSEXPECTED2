@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 8923695}
   - component: {fileID: 8923694}
   m_Layer: 0
-  m_Name: HitPoint_Evoli_Right
+  m_Name: HitPoint_Evoli_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1114,7 +1114,7 @@ GameObject:
   - component: {fileID: 413250554}
   - component: {fileID: 413250553}
   m_Layer: 0
-  m_Name: HitPoint_Evoli_Right (1)
+  m_Name: HitPoint_Evoli_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,7 +1127,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 413250551}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.44799995, y: 0.40999997, z: 0}
+  m_LocalPosition: {x: 0.448, y: 0.40999997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2037903401}
@@ -4099,8 +4099,8 @@ MonoBehaviour:
   jumpForce: 650
   myRb: {fileID: 0}
   playerColor: {r: 1, g: 0.51724136, b: 0, a: 1}
-  HitPointRight: {fileID: 0}
-  HitPointLeft: {fileID: 0}
+  HitPointRight: {fileID: 413250551}
+  HitPointLeft: {fileID: 8923693}
   myRenderer: {fileID: 193020032}
   myArmRenderer: {fileID: 1901885205}
   myEyeRenderer: {fileID: 339992607}

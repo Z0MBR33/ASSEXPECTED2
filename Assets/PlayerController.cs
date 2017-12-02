@@ -244,7 +244,14 @@ public class PlayerController : MonoBehaviour {
     void Hit()
     {
         myAnim.SetTrigger("Punch");
-        HitPoint.SetActive(true);
+        myAnim.SetBool("CanMoveAgain", true);
 
+        myEyeAnim.SetTrigger("Punch");
+        myEyeAnim.SetBool("CanMoveAgain",true);
+
+        myArmAnim.SetTrigger("Punch");
+        myArmAnim.SetBool("CanMoveAgain", true);
+
+        HitPoint.SetActive(true);
     }
 }

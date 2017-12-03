@@ -14,7 +14,11 @@ public class GameMaster : MonoBehaviour {
 
     private GameObject pl1;
     private GameObject pl2;
-    
+
+    public Canvas CanvasExit;
+    public Canvas CanvasLost;
+    public Canvas CanvasWon;
+
     // Use this for initialization
     void Start () {
         setColorPattern();
@@ -31,6 +35,13 @@ public class GameMaster : MonoBehaviour {
 
         Instantiate(pl1);
         Instantiate(pl2);
+
+        CanvasExit = CanvasExit.GetComponent<Canvas>();
+        CanvasExit.enabled = false;
+        CanvasLost = CanvasLost.GetComponent<Canvas>();
+        CanvasLost.enabled = false;
+        CanvasWon = CanvasWon.GetComponent<Canvas>();
+        CanvasWon.enabled = false;
     }
 
     private void initiate()
@@ -55,8 +66,32 @@ public class GameMaster : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (CanvasExit != null)
+            {
+                CanvasExit.enabled = true;
+                Time.timeScale = 0;
+            }
+            //Application.Quit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            CanvasLost.enabled = true;
+            Time.timeScale = 0;
+            //Application.Quit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            CanvasWon.enabled = true;
+            Time.timeScale = 0;
+            //Application.Quit();
+        }
+
+    }
 
     void setColorPattern()
     {

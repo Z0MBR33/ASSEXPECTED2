@@ -32,28 +32,15 @@ public class PlayerController : MonoBehaviour {
     public Animator myArmAnim;
     public Animator myEyeAnim;
 
-    public Canvas CanvasExit;
-    public Canvas CanvasLost;
-    public Canvas CanvasWon;
-
+    public int Counter;
     // Use this for initialization
     void Start () {
         myRb = GetComponent<Rigidbody2D>();
-        //myRenderer = GetComponentInChildren<SpriteRenderer>();
+        
         myRenderer.color = playerColor;
         myArmRenderer.color = playerColor;
-        //myAnim.GetComponentInChildren<Animator>();
+        
         SoundWave.GetComponent<SpriteRenderer>().color = playerColor;
-        //myRenderer.color = Color.red;
-/*
-        CanvasExit = CanvasExit.GetComponent<Canvas>();
-        CanvasExit.enabled = false;
-        CanvasLost = CanvasLost.GetComponent<Canvas>();
-        CanvasLost.enabled = false;
-        CanvasWon = CanvasWon.GetComponent<Canvas>();
-        CanvasWon.enabled = false;
-*/
-
 
     }
 	
@@ -67,8 +54,7 @@ public class PlayerController : MonoBehaviour {
         Vector3 moveX = new Vector3(currentX * speed * Time.deltaTime, 0, 0);
         if (WallGroundCheck(moveX))
         {
-            transform.position += moveX;
-            //myRb.AddForce(new Vector2(moveX.x, 0));
+            transform.position += moveX;            
 
         }
         else
@@ -90,11 +76,31 @@ public class PlayerController : MonoBehaviour {
         if (sound)
         {
             SoundWave.SetActive(true);
+            if(Counter == 0)
+            {
+                SoundWave.transform.position -= new Vector3(0, 0.01f, 0);
+                Counter = 1;
+            }
+            else
+            {
+                SoundWave.transform.position += new Vector3(0, 0.01f, 0);
+                Counter = 0;
+            }
             
         }
         else
         {
             SoundWave.SetActive(false);
+            if(Counter == 1)
+            {
+                SoundWave.transform.position += new Vector3(0, 0.01f, 0);
+                Counter = 2;
+            }
+            else if(Counter == 0)
+            {
+                SoundWave.transform.position -= new Vector3(0, 0.01f, 0);
+                Counter = 2;
+            }
             
         }
 
@@ -105,32 +111,6 @@ public class PlayerController : MonoBehaviour {
         
         if (CanMoveAgain)
         {
-            /*
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (CanvasExit != null)
-                {
-                    CanvasExit.enabled = true;
-                    Time.timeScale = 0;
-                }
-                //Application.Quit();
-            }
-
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                CanvasLost.enabled = true;
-                Time.timeScale = 0;
-                //Application.Quit();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                CanvasWon.enabled = true;
-                Time.timeScale = 0;
-                //Application.Quit();
-            }
-            */
-
 
             currentX = Input.GetAxis("Horizontal_" + playernumber);
             if (currentX < 0)

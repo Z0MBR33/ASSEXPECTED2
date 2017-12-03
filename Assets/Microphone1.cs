@@ -5,6 +5,7 @@ using UnityEngine;
 public class Microphone1 : MonoBehaviour {
     public GameObject linkedObject;
     public bool singASong;
+    public int listeningPlayerNumber;
 
     public bool currentUpdate;
     // Use this for initialization
@@ -21,22 +22,28 @@ public class Microphone1 : MonoBehaviour {
 
     void LateUpdate()
     {
+        
         if (!currentUpdate)
         {
             singASong = false;
         }
         currentUpdate = false;
+        
     }
 
-    public void OnCollsionEnter2D(Collision2D collision)
+    public void OnTriggerStay2D(Collider2D collision)
     {
             //this.gameObject.SetActive(false);
             Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "SoundWave")
         {
-            Debug.Log("Hi");
-            singASong = true;
-            currentUpdate = true;
+            if(collision.gameObject.transform.parent.tag == "player" + listeningPlayerNumber)
+            {
+                Debug.Log("Hi");
+                singASong = true;
+                currentUpdate = true;
+            }
+            
         }
 
     }

@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     public string playernumber;
     public bool CanMoveAgain = true;
+    public bool kicked = false;
 
     public float speed;
     public float jumpForce;
@@ -33,6 +34,14 @@ public class PlayerController : MonoBehaviour {
     public Animator myEyeAnim;
 
     public int Counter;
+
+    public AudioSource mySourceCharacter;
+    public AudioSource mySourceSoung;
+
+    public bool SingSong;
+    public AudioClip JumpClip;
+    public AudioClip ActionClip;
+    public AudioClip[] SongClip;
     // Use this for initialization
     void Start () {
         myRb = GetComponent<Rigidbody2D>();
@@ -66,6 +75,7 @@ public class PlayerController : MonoBehaviour {
         
         if (Jump && grounded)//!inJump)
         {
+            mySourceCharacter.clip = JumpClip;
             myRb.AddForce(new Vector2(0, jumpForce));
             myAnim.SetTrigger("Jump");
             myArmAnim.SetTrigger("Jump");
@@ -75,7 +85,14 @@ public class PlayerController : MonoBehaviour {
 
         if (sound)
         {
+            int songI = UnityEngine.Random.Range(0,SongClip.Length);
             SoundWave.SetActive(true);
+            if (!SingSong)
+            {
+                SingSong = true;
+                mySourceSoung.clip = SongClip[songI];
+                mySourceSoung.Play();
+            }
             if(Counter == 0)
             {
                 SoundWave.transform.position -= new Vector3(0, 0.01f, 0);
@@ -90,6 +107,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
+            SingSong = false;
             SoundWave.SetActive(false);
             if(Counter == 1)
             {
@@ -108,7 +126,6 @@ public class PlayerController : MonoBehaviour {
 
     private void checkInput()
     {
-        
         if (CanMoveAgain)
         {
 
@@ -227,26 +244,52 @@ public class PlayerController : MonoBehaviour {
     {
         //Debug.Log(transform.position);
         int layerMask = ~(LayerMask.GetMask("SoundWave"));
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0,-0.01f,0), -Vector2.up,0.015f,layerMask);
-        
-        if (hit.collider != null)
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(transform.localScale.x/2,-0.01f,0), -Vector2.up,0.015f,layerMask);
+        RaycastHit2D hit1 = Physics2D.Raycast(transform.position + new Vector3(-transform.localScale.x/2, -0.01f, 0), -Vector2.up, 0.015f, layerMask);
+        if (hit2.collider != null)
         {
-            if (hit.collider.gameObject.tag == "player1" || hit.collider.gameObject.tag == "player2")
+            if (hit2.collider.gameObject.tag == "player1" || hit2.collider.gameObject.tag == "player2")
             {
-                transform.parent = hit.collider.gameObject.transform; 
+                transform.parent = hit2.collider.gameObject.transform; 
             }
-            else if (hit.collider.gameObject.tag == "movePlatform")
+            else if (hit2.collider.gameObject.tag == "movePlatform")
             {
-                transform.parent = hit.collider.gameObject.transform;
+                transform.parent = hit2.collider.gameObject.transform;
             }
             else
             {
                 transform.parent = null;
             }
+            if (kicked)
+            {
+                CanMoveAgain = true;
+            }
             //Debug.Log("True ..." + Vector2.Distance(hit.point, transform.position));
             //Destroy(hit.collider.gameObject);
             return true;
            
+        }
+        else if (hit1.collider != null)
+        {
+                if (hit1.collider.gameObject.tag == "player1" || hit1.collider.gameObject.tag == "player2")
+                {
+                    transform.parent = hit1.collider.gameObject.transform;
+                }
+                else if (hit1.collider.gameObject.tag == "movePlatform")
+                {
+                    transform.parent = hit1.collider.gameObject.transform;
+                }
+                else
+                {
+                    transform.parent = null;
+                }
+                if (kicked)
+                {
+                    CanMoveAgain = true;
+                }
+                //Debug.Log("True ..." + Vector2.Distance(hit.point, transform.position));
+                //Destroy(hit.collider.gameObject);
+                return true;
         }
         else
         {
@@ -283,7 +326,7 @@ public class PlayerController : MonoBehaviour {
         
 
         HitPointRight.SetActive(true);
-        if (currentDirection < 0)
+        if (currentDirection > 0)
         {
             HitPointRight.SetActive(true);
             HitPointRight.transform.position += new Vector3(0, 0.1f, 0);
@@ -333,16 +376,25 @@ public class PlayerController : MonoBehaviour {
             {
                 myRb.AddForce(new Vector2(kick.Direction * 700, 500));
                 collision.gameObject.SetActive(false);
+
+                CanMoveAgain = false;
+                kicked = true;
+
+                myAnim.SetTrigger("Kicked");
+                //myAnim.SetBool("CanMoveAgain", false);
+
+                myEyeAnim.SetTrigger("Kicked");
+                //myEyeAnim.SetBool("CanMoveAgain", false);
+
+                myArmAnim.SetTrigger("Kicked");
+                //myArmAnim.SetBool("CanMoveAgain", false);
             }
         }
         else if (collision.gameObject.tag == "door")
         {
+
             Debug.Log("ChoosePlayer");
             collision.gameObject.GetComponent<DoorReached>().setPlayerReached(playernumber);
-
-
-
-
 
         }
 

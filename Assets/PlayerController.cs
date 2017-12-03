@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour {
         if (Jump && grounded)//!inJump)
         {
             mySourceCharacter.clip = JumpClip;
+            mySourceCharacter.Play();
             myRb.AddForce(new Vector2(0, jumpForce));
             myAnim.SetTrigger("Jump");
             myArmAnim.SetTrigger("Jump");
@@ -314,6 +315,8 @@ public class PlayerController : MonoBehaviour {
 
     void Kick()
     {
+        mySourceCharacter.clip = ActionClip;
+        mySourceCharacter.Play();
         myArmAnim.SetTrigger("Action");
         myArmAnim.SetBool("CanMoveAgain", false);
 
@@ -344,6 +347,9 @@ public class PlayerController : MonoBehaviour {
 
     void Hit()
     {
+        mySourceCharacter.clip = ActionClip;
+        mySourceCharacter.Play();
+
         myAnim.SetTrigger("Action");
         myAnim.SetBool("CanMoveAgain", false);
 

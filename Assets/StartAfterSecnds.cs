@@ -14,7 +14,7 @@ public class StartAfterSecnds : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Jump_1") || Input.GetButtonDown("Jump_2") || Input.GetButtonDown("Start_1") || Input.GetButtonDown("Start_2"))
         {
-            SceneManager.LoadScene("StartScreen");
+            SceneManager.LoadScene("StartScreenReal");
         }
 	}
 
@@ -22,6 +22,6 @@ public class StartAfterSecnds : MonoBehaviour {
     {
         // suspend execution for 5 seconds
         yield return new WaitForSeconds(time);
-        SceneManager.LoadScene("StartScreen");
+        SceneManager.LoadScene("StartScreenReal");
     }
 }

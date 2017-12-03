@@ -86,7 +86,7 @@ public class StartScreen : MonoBehaviour {
     public void StartGamePressed()
     {
         Debug.Log("start pressed");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Level_1");
       //Application.LoadLevel(1);
     }
 

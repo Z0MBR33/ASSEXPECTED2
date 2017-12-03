@@ -924,7 +924,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1400345971480522, guid: 399cc240e929b4c4d8683053e985116f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 399cc240e929b4c4d8683053e985116f, type: 2}
@@ -1287,6 +1287,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &885466560 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1453101916506850, guid: a283eaa9be855a245b7495b9bc822d6a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1170297449}
+--- !u!114 &885466562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 885466560}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8ab5c1d02770645b099636c42a5039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &908815943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1341,7 @@ MonoBehaviour:
   CanvasExit: {fileID: 379507152}
   CanvasLost: {fileID: 400995872}
   CanvasWon: {fileID: 1073457582}
+  playernumber: 
 --- !u!4 &908815945
 Transform:
   m_ObjectHideFlags: 0
@@ -1602,6 +1619,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1289867993982058, guid: d05ff31f373b7214793af61da41dd916, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1471221363050544, guid: d05ff31f373b7214793af61da41dd916, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1795,8 +1816,18 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1162813663535898, guid: a283eaa9be855a245b7495b9bc822d6a, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1721102717142194, guid: a283eaa9be855a245b7495b9bc822d6a, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114445517351611204, guid: a283eaa9be855a245b7495b9bc822d6a,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f2db0a850638734f82552d8249a39d6,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a283eaa9be855a245b7495b9bc822d6a, type: 2}
   m_IsPrefabParent: 0

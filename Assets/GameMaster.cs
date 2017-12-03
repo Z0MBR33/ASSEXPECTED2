@@ -24,6 +24,9 @@ public class GameMaster : MonoBehaviour {
     public Canvas CanvasLost;
     public Canvas CanvasWon;
 
+    public string playernumber;
+
+
     // Use this for initialization
     void Start () {
         setColorPattern();
@@ -76,11 +79,13 @@ public class GameMaster : MonoBehaviour {
         {
             if (CanvasExit != null)
             {
-                CanvasExit.enabled = true;
-                Time.timeScale = 0;
+                //CanvasExit.enabled = true;
+                //Time.timeScale = 0;
+                SceneManager.LoadScene("StartScreen");
             }
             //Application.Quit();
         }
+
 
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -92,18 +97,19 @@ public class GameMaster : MonoBehaviour {
         
         if (myDoor.nextLevel)
         {
-            if (sceneName == "Won")
-            {
-                CanvasWon.enabled = true;
-                Time.timeScale = 0;
-                //Application.Quit();
-
-            }
-            else
-            {
+        
+                Time.timeScale = 1;
                 SceneManager.LoadScene(sceneName);
-            }
             
+            
+        }
+
+
+        //if (CanvasWon == true && Input.GetButtonDown("0" + playernumber))
+        if (sceneName == ("Won") && CanvasWon == true && Input.GetKeyDown(KeyCode.P))            
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("StartScreen");
         }
     }
 

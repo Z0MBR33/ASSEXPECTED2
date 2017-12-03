@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour {
     public Color col1;
@@ -10,7 +11,11 @@ public class GameMaster : MonoBehaviour {
     public GameObject slim;
     public Transform StartPoint_pl1;
     public Transform StartPoint_pl2;
-    public GameObject SoundWave;
+
+    public DoorReached myDoor;
+
+    public String sceneName;
+    //public GameObject SoundWave;
 
     private GameObject pl1;
     private GameObject pl2;
@@ -36,11 +41,11 @@ public class GameMaster : MonoBehaviour {
         Instantiate(pl1);
         Instantiate(pl2);
 
-        CanvasExit = CanvasExit.GetComponent<Canvas>();
+        //CanvasExit = CanvasExit.GetComponent<Canvas>();
         CanvasExit.enabled = false;
-        CanvasLost = CanvasLost.GetComponent<Canvas>();
+        //CanvasLost = CanvasLost.GetComponent<Canvas>();
         CanvasLost.enabled = false;
-        CanvasWon = CanvasWon.GetComponent<Canvas>();
+        //CanvasWon = CanvasWon.GetComponent<Canvas>();
         CanvasWon.enabled = false;
     }
 
@@ -82,15 +87,24 @@ public class GameMaster : MonoBehaviour {
             CanvasLost.enabled = true;
             Time.timeScale = 0;
             //Application.Quit();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
+        }   
+        
+        
+        if (myDoor.nextLevel)
         {
-            CanvasWon.enabled = true;
-            Time.timeScale = 0;
-            //Application.Quit();
-        }
+            if (sceneName == "Won")
+            {
+                CanvasWon.enabled = true;
+                Time.timeScale = 0;
+                //Application.Quit();
 
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneName);
+            }
+            
+        }
     }
 
     void setColorPattern()

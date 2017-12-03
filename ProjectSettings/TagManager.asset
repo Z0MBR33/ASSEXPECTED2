@@ -12,6 +12,8 @@ TagManager:
   - KickBox
   - Mikrofon
   - SoundWave
+  - movePlatform
+  - door
   layers:
   - Default
   - TransparentFX

@@ -235,6 +235,10 @@ public class PlayerController : MonoBehaviour {
             {
                 transform.parent = hit.collider.gameObject.transform; 
             }
+            else if (hit.collider.gameObject.tag == "movePlatform")
+            {
+                transform.parent = hit.collider.gameObject.transform;
+            }
             else
             {
                 transform.parent = null;
@@ -282,13 +286,17 @@ public class PlayerController : MonoBehaviour {
         if (currentDirection < 0)
         {
             HitPointRight.SetActive(true);
+            HitPointRight.transform.position += new Vector3(0, 0.1f, 0);
+            HitPointLeft.transform.position += new Vector3(0, 0.1f, 0);
         }
-        HitPointRight.transform.position += new Vector3(0, 0.1f, 0);
+        
         if (currentDirection < 0)
         {
             HitPointLeft.SetActive(true);
+            HitPointRight.transform.position += new Vector3(0, 0.1f, 0);
+            HitPointLeft.transform.position += new Vector3(0, 0.1f, 0);
         }
-        HitPointLeft.transform.position += new Vector3(0, 0.1f, 0);
+        
     }
 
     void Hit()
@@ -327,6 +335,24 @@ public class PlayerController : MonoBehaviour {
                 collision.gameObject.SetActive(false);
             }
         }
+        else if (collision.gameObject.tag == "door")
+        {
+            Debug.Log("ChoosePlayer");
+            collision.gameObject.GetComponent<DoorReached>().setPlayerReached(playernumber);
+
+
+
+
+
+        }
 
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+
+    }
+
+
 }

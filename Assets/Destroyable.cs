@@ -16,9 +16,10 @@ public class Destroyable : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
         {
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
         if (collision.gameObject.tag == "PunchPoint")
         {
+            Debug.Log("Hallo");
             Destroy(this.gameObject);
         }
         

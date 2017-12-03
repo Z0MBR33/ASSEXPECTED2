@@ -45,13 +45,14 @@ public class PlayerController : MonoBehaviour {
         //myAnim.GetComponentInChildren<Animator>();
         SoundWave.GetComponent<SpriteRenderer>().color = playerColor;
         //myRenderer.color = Color.red;
-
+/*
         CanvasExit = CanvasExit.GetComponent<Canvas>();
         CanvasExit.enabled = false;
         CanvasLost = CanvasLost.GetComponent<Canvas>();
         CanvasLost.enabled = false;
         CanvasWon = CanvasWon.GetComponent<Canvas>();
         CanvasWon.enabled = false;
+*/
 
 
     }
@@ -89,10 +90,12 @@ public class PlayerController : MonoBehaviour {
         if (sound)
         {
             SoundWave.SetActive(true);
+            
         }
         else
         {
             SoundWave.SetActive(false);
+            
         }
 
 	}
@@ -102,7 +105,7 @@ public class PlayerController : MonoBehaviour {
         
         if (CanMoveAgain)
         {
-            
+            /*
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (CanvasExit != null)
@@ -126,6 +129,7 @@ public class PlayerController : MonoBehaviour {
                 Time.timeScale = 0;
                 //Application.Quit();
             }
+            */
 
 
             currentX = Input.GetAxis("Horizontal_" + playernumber);
@@ -161,9 +165,10 @@ public class PlayerController : MonoBehaviour {
 
     private bool WallGroundCheck(Vector3 move)
     {
-        //int layerMask = ~(LayerMask.GetMask("Default"));
-        RaycastHit2D hit1 = Physics2D.Raycast(transform.position + new Vector3(currentDirection * (0.51f), -transform.localScale.y/2, 0), new Vector2(currentDirection,0), move.magnitude);
-        RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(currentDirection * (0.51f), transform.localScale.y/2, 0), new Vector2(currentDirection, 0), move.magnitude);
+        int layerMask = ~(LayerMask.GetMask("SoundWave"));
+
+        RaycastHit2D hit1 = Physics2D.Raycast(transform.position + new Vector3(currentDirection * (0.51f), -transform.localScale.y/2, 0), new Vector2(currentDirection,0), move.magnitude, layerMask);
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(currentDirection * (0.51f), transform.localScale.y/2, 0), new Vector2(currentDirection, 0), move.magnitude, layerMask);
         if (hit1.collider != null && hit2.collider != null)
         {
             myArmAnim.SetBool("ArmPush", true);
@@ -183,7 +188,7 @@ public class PlayerController : MonoBehaviour {
         else
         {
 
-            Debug.Log("False");
+            //Debug.Log("False");
             myArmAnim.SetBool("ArmPush", false);
             
             myAnim.SetBool("ArmPush", true);
@@ -220,7 +225,7 @@ public class PlayerController : MonoBehaviour {
                 myArmAnim.SetBool("Run", false);
                 myAnim.SetBool("Run", false);
                 myEyeAnim.SetBool("Run", false);
-                Debug.Log("Ground");
+                //Debug.Log("Ground");
             }
             //Grounded State in anim;
             //myRenderer.color = Color.white;
@@ -240,8 +245,9 @@ public class PlayerController : MonoBehaviour {
 
     bool checkGround()
     {
-        Debug.Log(transform.position);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0,-0.01f,0), -Vector2.up,0.015f);
+        //Debug.Log(transform.position);
+        int layerMask = ~(LayerMask.GetMask("SoundWave"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0,-0.01f,0), -Vector2.up,0.015f,layerMask);
         
         if (hit.collider != null)
         {
@@ -261,7 +267,7 @@ public class PlayerController : MonoBehaviour {
         else
         {
             transform.parent = null;
-            Debug.Log("False");
+            //Debug.Log("False");
             return false;
         }
         
@@ -281,7 +287,28 @@ public class PlayerController : MonoBehaviour {
 
     void Kick()
     {
+        myArmAnim.SetTrigger("Action");
+        myArmAnim.SetBool("CanMoveAgain", false);
 
+        myAnim.SetTrigger("Action");
+        myAnim.SetBool("CanMoveAgain", false);
+
+        myEyeAnim.SetTrigger("Action");
+        myEyeAnim.SetBool("CanMoveAgain", false);
+
+        
+
+        HitPointRight.SetActive(true);
+        if (currentDirection < 0)
+        {
+            HitPointRight.SetActive(true);
+        }
+        HitPointRight.transform.position += new Vector3(0, 0.1f, 0);
+        if (currentDirection < 0)
+        {
+            HitPointLeft.SetActive(true);
+        }
+        HitPointLeft.transform.position += new Vector3(0, 0.1f, 0);
     }
 
     void Hit()
@@ -306,5 +333,20 @@ public class PlayerController : MonoBehaviour {
             HitPointLeft.SetActive(true);
         }
         HitPointLeft.transform.position += new Vector3(0, 0.1f, 0);
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "KickBox")
+        {
+            Kick kick = collision.gameObject.GetComponent<Kick>();
+
+            if (kick != null)
+            {
+                myRb.AddForce(new Vector2(kick.Direction * 700, 500));
+                collision.gameObject.SetActive(false);
+            }
+        }
+
     }
 }

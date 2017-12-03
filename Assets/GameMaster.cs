@@ -20,8 +20,8 @@ public class GameMaster : MonoBehaviour {
         setColorPattern();
         setRandomPlayer();
 
-        pl1.GetComponent<PlayerController>().playerColor = col1;
-        pl2.GetComponent<PlayerController>().playerColor = col2;
+        //pl1.GetComponent<PlayerController>().playerColor = col1;
+        //pl2.GetComponent<PlayerController>().playerColor = col2;
 
         //pl1.GetComponent<PlayerController>().SoundWave = SoundWave;
         //pl2.GetComponent<PlayerController>().SoundWave = SoundWave;

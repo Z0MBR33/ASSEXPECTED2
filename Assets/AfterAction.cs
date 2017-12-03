@@ -21,7 +21,6 @@ public class AfterAction : StateMachineBehaviour {
         
         if(myPlayerControler != null)
         {
-            Debug.Log("Hallo Robert");
             myPlayerControler.CanMoveAgain = true;
             myPlayerControler.HitPointLeft.transform.position += new Vector3(0, -0.1f, 0);
             myPlayerControler.HitPointRight.transform.position += new Vector3(0, -0.1f, 0);

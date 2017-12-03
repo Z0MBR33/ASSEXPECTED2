@@ -9,6 +9,9 @@ TagManager:
   - MoveAble
   - Destroyable
   - PunchPoint
+  - KickBox
+  - Mikrofon
+  - SoundWave
   layers:
   - Default
   - TransparentFX

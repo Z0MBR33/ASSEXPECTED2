@@ -27,6 +27,9 @@ public class StartScreen : MonoBehaviour {
     public Canvas HowToCanvas;
     public Button HowToReturn;
 
+    public GameObject Keyboard;
+    public GameObject XboxController;
+
 
 
 
@@ -170,5 +173,20 @@ public class StartScreen : MonoBehaviour {
         QuitGame.enabled = true;
         Credits.enabled = true;
         HowTo.enabled = true;
+    }
+
+    public void SwitchControlsKeyboard()
+    {
+        XboxController.SetActive(true);
+        Keyboard.SetActive(false);
+
+
+    }
+
+    public void SwitchControlsController()
+    {
+        XboxController.SetActive(false);
+        Keyboard.SetActive(true);
+
     }
 }

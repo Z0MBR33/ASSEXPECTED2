@@ -75,24 +75,24 @@ public class GameMaster : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (CanvasExit != null)
-            {
-                //CanvasExit.enabled = true;
-                //Time.timeScale = 0;
-                SceneManager.LoadScene("StartScreen");
-            }
-            //Application.Quit();
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    if (CanvasExit != null)
+        //    {
+        //        //CanvasExit.enabled = true;
+        //        //Time.timeScale = 0;
+        //        SceneManager.LoadScene("StartScreen");
+        //    }
+        //    //Application.Quit();
+        //}
 
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            CanvasLost.enabled = true;
-            Time.timeScale = 0;
-            //Application.Quit();
-        }   
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    CanvasLost.enabled = true;
+        //    Time.timeScale = 0;
+        //    //Application.Quit();
+        //}   
         
         
         if (myDoor.nextLevel)
@@ -105,12 +105,12 @@ public class GameMaster : MonoBehaviour {
         }
 
 
-        //if (CanvasWon == true && Input.GetButtonDown("0" + playernumber))
-        if (sceneName == ("Won") && CanvasWon == true && Input.GetKeyDown(KeyCode.P))            
-        {
-            Time.timeScale = 1;
-            SceneManager.LoadScene("StartScreen");
-        }
+        ////if (CanvasWon == true && Input.GetButtonDown("0" + playernumber))
+        //if (sceneName == ("Won") && CanvasWon == true && Input.GetKeyDown(KeyCode.P))            
+        //{
+        //    Time.timeScale = 1;
+        //    SceneManager.LoadScene("StartScreen");
+        //}
     }
 
     void setColorPattern()
